@@ -28,14 +28,22 @@ export async function postCreateOrUpdateEnrollment(req: AuthenticatedRequest, re
   }
 }
 
-// TODO - Receber o CEP do usuário por query params.
+export type AddressFromCep = {
+  logradouro: string;
+  complemento: string;
+  bairro: string;
+  cidade: string;
+  uf: string;
+};
+
 export async function getAddressFromCEP(req: AuthenticatedRequest, res: Response) {
+  const { cep }: { cep?: string; } = req.query;
   try {
-    const address = await enrollmentsService.getAddressFromCEP();
+    const address: AddressFromCep = await enrollmentsService.getAddressFromCEP(cep);
     res.status(httpStatus.OK).send(address);
   } catch (error) {
     if (error.name === 'NotFoundError') {
-      return res.send(httpStatus.NO_CONTENT);
+      return res.sendStatus(httpStatus.NO_CONTENT);
     }
   }
 }
