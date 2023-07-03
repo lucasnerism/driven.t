@@ -37,7 +37,7 @@ export type AddressFromCep = {
 };
 
 export async function getAddressFromCEP(req: AuthenticatedRequest, res: Response) {
-  const { cep }: { cep?: string; } = req.query;
+  const { cep }: { cep?: string } = req.query;
   try {
     const address: AddressFromCep = await enrollmentsService.getAddressFromCEP(cep);
     res.status(httpStatus.OK).send(address);

@@ -7,7 +7,6 @@ import { exclude } from '@/utils/prisma-utils';
 import { AddressFromCep } from '../../controllers';
 
 async function getAddressFromCEP(cep: string) {
-
   const result = await request.get(`${process.env.VIA_CEP_API}/${cep}/json/`);
 
   if (!result.data || result.data.erro) {
@@ -19,7 +18,7 @@ async function getAddressFromCEP(cep: string) {
     complemento: result.data.complemento,
     bairro: result.data.bairro,
     cidade: result.data.localidade,
-    uf: result.data.uf
+    uf: result.data.uf,
   };
 
   return address;
