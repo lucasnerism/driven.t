@@ -10,10 +10,7 @@ async function getAddressFromCEP(cep: string) {
 
   const result = await request.get(`${process.env.VIA_CEP_API}/${cep}/json/`);
 
-  if (!result.data) {
-    throw notFoundError();
-  }
-  if (result.data.erro) {
+  if (!result.data || result.data.erro) {
     throw notFoundError();
   }
 
@@ -56,7 +53,7 @@ async function createOrUpdateEnrollmentWithAddress(params: CreateOrUpdateEnrollm
   const enrollment = exclude(params, 'address');
   const address = getAddressForUpsert(params.address);
 
-  const checkCep = await getAddressFromCEP(address.cep);
+  await getAddressFromCEP(address.cep);
 
   const newEnrollment = await enrollmentRepository.upsert(params.userId, enrollment, exclude(enrollment, 'userId'));
 
