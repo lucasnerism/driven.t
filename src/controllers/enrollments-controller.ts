@@ -28,18 +28,10 @@ export async function postCreateOrUpdateEnrollment(req: AuthenticatedRequest, re
   }
 }
 
-export type AddressFromCep = {
-  logradouro: string;
-  complemento: string;
-  bairro: string;
-  cidade: string;
-  uf: string;
-};
-
 export async function getAddressFromCEP(req: AuthenticatedRequest, res: Response) {
   const { cep }: { cep?: string } = req.query;
   try {
-    const address: AddressFromCep = await enrollmentsService.getAddressFromCEP(cep);
+    const address = await enrollmentsService.getAddressFromCEP(cep);
     res.status(httpStatus.OK).send(address);
   } catch (error) {
     if (error.name === 'NotFoundError') {

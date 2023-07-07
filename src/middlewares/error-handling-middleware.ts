@@ -8,7 +8,7 @@ export function handleApplicationErrors(
   res: Response,
   _next: NextFunction,
 ) {
-  if (err.name === 'CannotEnrollBeforeStartDateError') {
+  if (err.name === 'CannotEnrollBeforeStartDateError'|| err.name === 'InvalidQueryString') {
     return res.status(httpStatus.BAD_REQUEST).send({
       message: err.message,
     });
@@ -39,7 +39,7 @@ export function handleApplicationErrors(
   }
 
   /* eslint-disable-next-line no-console */
-  console.error(err.name);
+  // console.error(err.name);
   res.status(httpStatus.INTERNAL_SERVER_ERROR).send({
     error: 'InternalServerError',
     message: 'Internal Server Error',
