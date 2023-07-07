@@ -8,7 +8,7 @@ export function handleApplicationErrors(
   res: Response,
   _next: NextFunction,
 ) {
-  if (err.name === 'CannotEnrollBeforeStartDateError'|| err.name === 'InvalidQueryString') {
+  if (err.name === 'CannotEnrollBeforeStartDateError' || err.name === 'InvalidQueryString') {
     return res.status(httpStatus.BAD_REQUEST).send({
       message: err.message,
     });

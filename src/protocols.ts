@@ -1,5 +1,3 @@
-import { number } from "joi";
-
 export type ApplicationError = {
   name: string;
   message: string;
@@ -48,8 +46,8 @@ export type RequestError = {
 };
 
 export type PaymentData = {
-  ticketId:number;
-  value:number;
-  cardIssuer:string;
-  cardLastDigits:string;
-}
+  ticketId: number;
+  value: number;
+  cardIssuer: string;
+  cardLastDigits: string;
+};

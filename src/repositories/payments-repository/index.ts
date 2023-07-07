@@ -1,21 +1,21 @@
-import { PaymentData } from "@/protocols";
-import { prisma } from "@/config";
+import { PaymentData } from '@/protocols';
+import { prisma } from '@/config';
 
-async function createPayment(paymentData:PaymentData){
+async function createPayment(paymentData: PaymentData) {
   return prisma.payment.create({
-    data:paymentData
-  })
+    data: paymentData,
+  });
 }
 
-async function findPayment(ticketId:number){
+async function findPayment(ticketId: number) {
   return prisma.payment.findFirst({
-    where:{ticketId}
-  })
+    where: { ticketId },
+  });
 }
 
 const paymentsRepository = {
   createPayment,
   findPayment,
-}
+};
 
-export default paymentsRepository
+export default paymentsRepository;
