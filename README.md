@@ -38,24 +38,17 @@ npm run dev
 ## How to run tests
 
 1. Follow the steps in the last section
-1. Configure the `.env.test` file using the `.env.example` file (see "Running application locally or inside docker" section for details)
-1. Run all migrations
+2. Configure the `.env.test` file using the `.env.example` file (see "Running application locally or inside docker" section for details)
+3. Run all migrations:
 
 ```bash
-npm run migration:run
+npm run test:migration:run
 ```
 
-3. Run test:
-   (locally)
+4. Run test:
 
 ```bash
 npm run test
-```
-
-(docker)
-
-```bash
-npm run test:docker
 ```
 
 ## Building and starting for production
@@ -77,7 +70,3 @@ You can operate on databases for different environments, but it is necessary to 
 - `npm run dev:migration:generate -- --name ATOMIC_OPERATION_NAME` - generate and run migration and prisma client for development environment by loading envs from .env.development file. Replace `ATOMIC_OPERATION_NAME` by the name of the migration you want to generate.
 
 ## What to do when add new ENV VARIABLES
-
-There are several things you need to do when you add new ENV VARIABLES:
-- Add them to `.env.example` file
-- Add them to your local `.env.development` and `.env.test` files
