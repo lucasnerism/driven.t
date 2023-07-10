@@ -1,10 +1,10 @@
 import { Response } from 'express';
 import httpStatus from 'http-status';
-import { RequestWithUserId } from './tickets-controller';
 import paymentsService from '@/services/payments-service';
 import { invalidQueryError } from '@/errors';
+import { AuthenticatedRequest } from '../middlewares';
 
-async function newPayment(req: RequestWithUserId, res: Response) {
+async function newPayment(req: AuthenticatedRequest, res: Response) {
   const { userId } = req;
   const { ticketId, cardData } = req.body;
   const { issuer: cardIssuer } = cardData;
@@ -13,7 +13,7 @@ async function newPayment(req: RequestWithUserId, res: Response) {
   res.status(httpStatus.OK).send(payment);
 }
 
-async function getPayment(req: RequestWithUserId, res: Response) {
+async function getPayment(req: AuthenticatedRequest, res: Response) {
   const { userId } = req;
   const { ticketId }: { ticketId?: string } = req.query;
   if (!ticketId) throw invalidQueryError('Ticket id value not valid');
