@@ -5,8 +5,9 @@ import { authenticateToken, validateBody } from '@/middlewares';
 
 const paymentsRouter = Router();
 
-paymentsRouter.use(authenticateToken);
-paymentsRouter.get('/', paymentsController.getPayment);
-paymentsRouter.post('/process', validateBody(paymentSchema), paymentsController.newPayment);
+paymentsRouter
+  .all('/*', authenticateToken)
+  .get('/', paymentsController.getPayment)
+  .post('/process', validateBody(paymentSchema), paymentsController.newPayment);
 
 export { paymentsRouter };
