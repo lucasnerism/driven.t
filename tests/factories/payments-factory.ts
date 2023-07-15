@@ -2,6 +2,14 @@ import faker from '@faker-js/faker';
 import { prisma } from '@/config';
 
 export async function createPayment(ticketId: number, value: number) {
+  await prisma.ticket.update({
+    where: {
+      id: ticketId,
+    },
+    data: {
+      status: 'PAID',
+    },
+  });
   return prisma.payment.create({
     data: {
       ticketId,
