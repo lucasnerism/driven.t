@@ -1,7 +1,7 @@
 import faker from '@faker-js/faker';
 import { prisma } from '@/config';
 
-export async function createHotelsWithRooms() {
+export async function createHotelsWithRooms(capacity?: number) {
   return prisma.hotel.create({
     data: {
       name: faker.company.companyName(),
@@ -11,11 +11,7 @@ export async function createHotelsWithRooms() {
           data: [
             {
               name: faker.animal.bird(),
-              capacity: faker.datatype.number({ min: 1, max: 3 }),
-            },
-            {
-              name: faker.animal.bird(),
-              capacity: faker.datatype.number({ min: 1, max: 3 }),
+              capacity: capacity || faker.datatype.number({ min: 1, max: 3 }),
             },
           ],
         },
@@ -30,20 +26,16 @@ export async function createHotels() {
     data: {
       name: faker.company.companyName(),
       image: faker.image.business(),
-      Rooms: {
-        createMany: {
-          data: [
-            {
-              name: faker.animal.bird(),
-              capacity: faker.datatype.number({ min: 1, max: 3 }),
-            },
-            {
-              name: faker.animal.bird(),
-              capacity: faker.datatype.number({ min: 1, max: 3 }),
-            },
-          ],
-        },
-      },
+    },
+  });
+}
+
+export async function createRooms(hotelId: number, capacity: number) {
+  return prisma.room.create({
+    data: {
+      hotelId,
+      name: faker.animal.bird(),
+      capacity,
     },
   });
 }
