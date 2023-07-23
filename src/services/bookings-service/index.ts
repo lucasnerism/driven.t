@@ -18,7 +18,7 @@ async function postBooking(userId: number, roomId: number) {
   await checkRoomAvailability(roomId);
 
   const booking = await bookingRepository.createBooking(userId, roomId);
-  return booking;
+  return { bookingId: booking.id };
 }
 
 async function getBooking(userId: number) {
@@ -30,12 +30,11 @@ async function getBooking(userId: number) {
 
 async function putBooking(userId: number, roomId: number, bookingId: number) {
   const booking = await bookingRepository.findBooking(userId);
-  if (!booking) throw notFoundError();
-  if (booking.id !== bookingId) throw forbiddenActionError();
+  if (!booking || booking.id !== bookingId) throw forbiddenActionError();
   await checkRoomAvailability(roomId);
 
   const newBooking = await bookingRepository.changeBooking(bookingId, roomId);
-  return newBooking;
+  return { bookingId: newBooking.id };
 }
 
 async function checkRoomAvailability(roomId: number) {
