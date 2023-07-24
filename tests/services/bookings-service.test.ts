@@ -3,12 +3,12 @@ import { Room } from '@prisma/client';
 import { cleanDb } from '../helpers';
 import { init } from '@/app';
 import bookingRepository from '@/repositories/bookings-repository';
-import bookingService from '@/services/bookings-service';
+import bookingService from '@/services/booking-service';
 import enrollmentRepository from '@/repositories/enrollment-repository';
 import ticketsRepository from '@/repositories/tickets-repository';
 import { forbiddenActionError } from '@/errors/forbidden-action-error';
 import { notFoundError } from '@/errors';
-import * as helper from '@/services/bookings-service';
+import * as helper from '@/services/booking-service';
 
 beforeAll(async () => {
   await init();

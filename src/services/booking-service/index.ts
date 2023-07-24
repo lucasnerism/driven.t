@@ -4,7 +4,7 @@ import hotelsRepository from '../../repositories/hotels-repository';
 import bookingRepository from '../../repositories/bookings-repository';
 import enrollmentRepository from '@/repositories/enrollment-repository';
 import { notFoundError } from '@/errors';
-import * as helper from '@/services/bookings-service';
+import * as helper from '@/services/booking-service';
 
 async function postBooking(userId: number, roomId: number) {
   const enrollment = await enrollmentRepository.findWithAddressByUserId(userId);

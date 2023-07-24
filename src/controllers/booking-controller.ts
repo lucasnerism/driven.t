@@ -1,6 +1,6 @@
 import { Response } from 'express';
 import httpStatus from 'http-status';
-import bookingService from '../services/bookings-service';
+import bookingService from '../services/booking-service';
 import { requestError } from '../errors';
 import { AuthenticatedRequest } from '@/middlewares';
 
