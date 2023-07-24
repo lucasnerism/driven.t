@@ -4,6 +4,7 @@ import hotelsRepository from '../../repositories/hotels-repository';
 import bookingRepository from '../../repositories/bookings-repository';
 import enrollmentRepository from '@/repositories/enrollment-repository';
 import { notFoundError } from '@/errors';
+import * as helper from '@/services/bookings-service';
 
 async function postBooking(userId: number, roomId: number) {
   const enrollment = await enrollmentRepository.findWithAddressByUserId(userId);
@@ -15,7 +16,7 @@ async function postBooking(userId: number, roomId: number) {
     throw forbiddenActionError();
   }
 
-  await checkRoomAvailability(roomId);
+  await helper.checkRoomAvailability(roomId);
 
   const booking = await bookingRepository.createBooking(userId, roomId);
   return { bookingId: booking.id };
@@ -31,13 +32,13 @@ async function getBooking(userId: number) {
 async function putBooking(userId: number, roomId: number, bookingId: number) {
   const booking = await bookingRepository.findBooking(userId);
   if (!booking || booking.id !== bookingId) throw forbiddenActionError();
-  await checkRoomAvailability(roomId);
+  await helper.checkRoomAvailability(roomId);
 
   const newBooking = await bookingRepository.changeBooking(bookingId, roomId);
   return { bookingId: newBooking.id };
 }
 
-async function checkRoomAvailability(roomId: number) {
+export async function checkRoomAvailability(roomId: number) {
   const room = await hotelsRepository.findRoomById(roomId);
   if (!room) throw notFoundError();
 

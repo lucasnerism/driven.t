@@ -20,5 +20,8 @@ export async function createTicket(enrollmentId: number, ticketTypeId: number, s
       ticketTypeId,
       status,
     },
+    include: {
+      TicketType: true,
+    },
   });
 }

@@ -13,6 +13,10 @@ export async function createHotelsWithRooms(capacity?: number) {
               name: faker.animal.bird(),
               capacity: capacity || faker.datatype.number({ min: 1, max: 3 }),
             },
+            {
+              name: faker.animal.bird(),
+              capacity: capacity || faker.datatype.number({ min: 1, max: 3 }),
+            },
           ],
         },
       },
